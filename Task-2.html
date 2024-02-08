@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-2</title>
+
+</head>
+
+<body>
+    <script>
+        function MathQuestion(question, answer) { 
+            this.question = question; 
+            this.answer = answer; 
+        } 
+ 
+        function Player(name) { 
+            this.name = name; 
+            this.score = 0; 
+        } 
+ 
+        function Game() { 
+            this.mathQuestions = [ 
+                new MathQuestion("2 + 2", 4), 
+                new MathQuestion("5 * 3", 15), 
+                new MathQuestion("10 / 2", 5), 
+                new MathQuestion("7 - 4", 3), 
+                new MathQuestion("3 * 6", 18), 
+                new MathQuestion("9 + 7", 16), 
+                // Add more questions as needed 
+            ]; 
+            this.players = []; 
+        } 
+ 
+        Game.prototype.startGame = function () { 
+            // Ask each player for their name 
+            for (let i = 1; i <= 2; i++) { 
+                let playerName = prompt("Enter Player " + i + "'s name:"); 
+                this.players.push(new Player(playerName)); 
+            } 
+ 
+            // Present each player with a series of math questions 
+            for (let player of this.players) { 
+                for (let question of this.mathQuestions) { 
+                    let userAnswer = prompt(player.name + ": " + 
+question.question); 
+ 
+                    // Check if the answer is correct and update the score 
+                    if (parseInt(userAnswer) === question.answer) { 
+                        player.score++; 
+                    } 
+                } 
+            } 
+ 
+             
+            for (let player of this.players) { 
+                player.score *= 10; 
+                player.score += Math.floor(Math.random() * 5); 
+            } 
+ 
+            // Display the final score for each player in the browser 
+            var resultDisplay = document.createElement("div"); 
+            resultDisplay.innerHTML = "<h2>Final Scores:</h2>"; 
+ 
+            for (let player of this.players) { 
+                resultDisplay.innerHTML += "<p>" + player.name + "'s FinalScore: " + player.score + "</p>"; 
+            } 
+ 
+            document.body.appendChild(resultDisplay); 
+        }; 
+ 
+        var mathGame = new Game(); 
+        mathGame.startGame(); 
+    </script>
+
+</body>
+
+</html>
